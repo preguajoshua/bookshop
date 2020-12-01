@@ -1,0 +1,5 @@
+/docker/app/local
+/docker/node
+.env
+docker-compose.override.yml
+project.todo

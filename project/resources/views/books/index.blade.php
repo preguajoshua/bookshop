@@ -46,7 +46,7 @@
                     <td>{{ $book->authors->initials }}</td>
                     <td>{{ $book->pages }}</td>
                     <td>
-                     <!--  <a href="/books/{{ $book->id }}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this?')"><i class="glyphicon glyphicon-trash"></i></a> -->
+                      <a href="/booksdel/{{ $book->id }}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this?')"><i class="glyphicon glyphicon-trash"></i></a>
                     </td>
                  </tr>
                  @endforeach

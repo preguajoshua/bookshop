@@ -1,32 +1,15 @@
 
 <!-- DataTables -->
-<script src="asset('bower_components/datatables.net/js/jquery.dataTables.min.js')"></script>
-<script src="asset('bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js')"></script>
+<script src="asset('plugins/datatables/jquery.dataTables.min.js')"></script>
+<script src="asset('plugins/datatables/dataTables.bootstrap.min.js')"></script>
+<!-- <script src="asset('bower_components/datatables.net/js/jquery.dataTables.min.js')"></script>
+<script src="asset('bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js')"></script> -->
 <!-- SlimScroll -->
 <!-- <script src="bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script> -->
 <!-- FastClick -->
 <!-- <script src="bower_components/fastclick/lib/fastclick.js"></script> -->
 
-<!-- Data Table Initialize -->
-<script>
-  $(function () {
-    $('#example1').DataTable()
-  	var bookTable = $('#booklist').DataTable({
-      'paging'      : true,
-      'lengthChange': false,
-      'searching'   : true,
-      'ordering'    : true,
-      'info'        : false,
-      'autoWidth'   : false
-    })
 
-    $('#searchBox').on('keyup', function(){
-    	bookTable.search(this.value).draw();
-	});
-
-  })
-</script>
-    
     <!-- jQuery 2.1.4 -->
     <script src="{{ asset('plugins/jQuery/jQuery-2.1.4.min.js') }}"></script>       
     <!-- Bootstrap 3.3.5 -->
@@ -50,3 +33,22 @@
     <script src="{{ asset('dist/js/demo.js') }}"></script>
 
    
+    <!-- Data Table Initialize -->
+    <script>
+      $(function () {
+        $('#tables').DataTable()
+        var bookTable = $('#booklist').DataTable({
+          'paging'      : true,
+          'lengthChange': false,
+          'searching'   : true,
+          'ordering'    : true,
+          'info'        : false,
+          'autoWidth'   : false
+        })
+
+        $('#searchBox').on('keyup', function(){
+          bookTable.search(this.value).draw();
+      });
+
+      })
+    </script>

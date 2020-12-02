@@ -16,7 +16,6 @@
     </section>
     <!-- Main content -->
     <section class="content">
-      
       <div class="row">
         <div class="col-xs-12">
           <div class="box">
@@ -59,7 +58,7 @@
                 <!-- small box -->
                 <div class="small-box bg-yellow">
                   <div class="inner">
-                    <h3>{{ $countBooks->count() }}</h3>
+                    <h3>{{ $distinctBooks->count() }}</h3>
                     <p>Books</p>
                   </div>
                   <div class="icon">
@@ -72,7 +71,7 @@
                 <!-- small box -->
                 <div class="small-box bg-red">
                   <div class="inner">
-                    <h3>{{ $cCountries->count() }}</h3>
+                    <h3>{{ $distinctCountries->count() }}</h3>
                     <p>Countries</p>
                   </div>
                   <div class="icon">
@@ -82,14 +81,17 @@
                 </div>
               </div><!-- ./col -->
             </div>
-              @if ($message = Session::get('success'))
-                <div class="alert alert-success">
-                  <p>{{ $message }}</p>
-                </div>
-              @endif
-              <table id="example1" class="table table-bordered">
+            @if ($message = Session::get('success'))
+              <div class="alert alert-success alert-dismissable">
+                <p>{{ $message }}</p>
+              </div>
 
-              
+            @elseif ($message = Session::get('error'))
+              <div class="alert alert-warning alert-dismissable">
+                  <p>{{ $message }}</p>
+              </div>
+            @endif
+              <table id="tables" class="table table-bordered">
                 <thead>
                   <th>#</th>
                   <th>Initials</th>
@@ -106,23 +108,18 @@
                     <td>{{ $auth->age }}</td>
                     <td>{{ $auth->country }}</td>
                     <td>
-                     <!--  <a href="/authors/{{ $auth->id }}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this?')"><i class="glyphicon glyphicon-trash"></i></a> -->
+                      <a href="/authorsdel/{{ $auth->id }}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this?')"><i class="glyphicon glyphicon-trash"></i></a>
                     </td>
                  </tr>
                  @endforeach
-               
                 </tbody>
               </table>
-
-              {{ $author->links()}}
-         
+              {{ $author->links() }}
             </div>
           </div>
         </div>
       </div>
       @include('authors.modals')
     </section>   
-    
-    
   </div>
 @endsection

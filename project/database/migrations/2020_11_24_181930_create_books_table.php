@@ -20,8 +20,6 @@ class CreateBooksTable extends Migration
             $table->string('title');
             $table->integer('pages');
             $table->timestamps();
-
-            
         });
 
 

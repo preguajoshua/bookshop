@@ -39,7 +39,10 @@ class BooksController extends Controller
         $books->authors_id = request('authors_id');
         $books->pages = request('pages');
 
-        $books->save();
+        if(!$books->save()){
+            return redirect('/books')->with('error', 'Failed to add books. Please try again!');
+        }
+
 
         return redirect('/books')->with('success', 'Book has been added successfully');
     }
@@ -53,7 +56,9 @@ class BooksController extends Controller
         $books->authors_id = request('authors_id');
         $books->pages = request('pages');
 
-        $books->save();
+        if(!$books->save()){
+            return redirect('/books')->with('error', 'Failed to update books. Please try again!');
+        }
         return redirect('/books')->with('success', 'Book has been updated successfully');
     }
 
@@ -61,6 +66,6 @@ class BooksController extends Controller
 
         $books = Book::find($id);
         $books->delete($books->id);
-        return back();
+        return redirect('/books')->with('success', 'Book has been deleted successfully');
     }
 }

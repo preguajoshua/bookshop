@@ -83,12 +83,14 @@
             </div>
             @if ($message = Session::get('success'))
               <div class="alert alert-success alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                 <p>{{ $message }}</p>
               </div>
 
-            @elseif ($message = Session::get('error'))
+            @elseif ($errors->any())
               <div class="alert alert-warning alert-dismissable">
-                  <p>{{ $message }}</p>
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                  <p>{{ $errors }}</p>
               </div>
             @endif
               <table id="tables" class="table table-bordered">

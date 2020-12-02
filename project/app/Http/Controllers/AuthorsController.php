@@ -13,47 +13,17 @@ class AuthorsController extends Controller
         $authors = Author::all();
         $distinctBooks = Book::distinct('title');
         $distinctCountries = Author::distinct('country');
-
-        return view('authors.index', [
-            'authors' => $authors,
-            'author' => $author,
-            'distinctBooks' => $distinctBooks,
-            'distinctCountries' => $distinctCountries,
-        ]);
+        return view('authors.index', compact('author', 'authors', 'distinctBooks', 'distinctCountries'));
     }
 
-    
     public function show($id){
         
         $authors = Author::find($id);
         $booksOfAuthor =  Book::where('authors_id', $id)->get();
-        
-        return view('authors.show', [
-            'authors' => $authors,
-            'booksOfAuthor' => $booksOfAuthor,
-        ]);
+        return view('authors.show', compact('authors', 'booksOfAuthor'));
     }
 
-    public function update($id){
-        $data = request()->validate([
-            'lastname' => 'required|min:3',
-            'initials' => 'required|min:3',
-            'age' => 'required',
-            'country' => 'required|min:2',
-        ]);
-        $author = Author::find($id);
-        $author->lastname = request('lastname');
-        $author->initials = request('initials');
-        $author->age = request('age');
-        $author->country = request('country');
-        $author->save();
-        
-
-        return redirect('/authors')->with('success', 'Author has been updated successfully');
-    }
-    
     public function store(){
-
         $data = request()->validate([
             'lastname' => 'required|min:3',
             'initials' => 'required|min:3',
@@ -64,6 +34,16 @@ class AuthorsController extends Controller
         return redirect('/authors')->with('success', 'Author has been added successfully');
     }
 
+    public function update($id){
+        $data = request()->validate([
+            'lastname' => 'required|min:3',
+            'initials' => 'required|min:3',
+            'age' => 'required',
+            'country' => 'required|min:2',
+        ]);
+        Author::findOrFail($id)->update($data);
+        return redirect('/authors')->with('success', 'Author has been updated successfully');
+    }
     public function delete($id){
         $author = Author::find($id);
         $author->delete($author->id);

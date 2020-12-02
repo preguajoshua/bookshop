@@ -9,13 +9,10 @@ use Illuminate\Http\Request;
 class BooksController extends Controller
 {
     public function index(){
+        
         $books = Book::orderBy('title', 'ASC')->paginate(50);
         $authors = Author::all();
-
-        return view('books.index', [
-            'books' => $books,
-            'authors' => $authors,
-        ]);
+        return view('books.index', compact('books', 'authors'));
     }
 
 
@@ -24,41 +21,31 @@ class BooksController extends Controller
         
         $books = Book::find($id);
         $authors = Author::all();
-        return view('books.show', [
-            'books' => $books,
-            'authors' => $authors,
-            
-        ]);
+        return view('books.show', compact('books', 'authors'));
     }
 
     public function store(){
-        $books = new Book();
 
-        $books->isbn = request('isbn');
-        $books->title = request('title');
-        $books->authors_id = request('authors_id');
-        $books->pages = request('pages');
-
-        if(!$books->save()){
-            return redirect('/books')->with('error', 'Failed to add books. Please try again!');
-        }
-
-
+        $data = request()->validate([
+            'isbn' => 'required|min:13',
+            'title' => 'required|min:3',
+            'authors_id' => 'required|min:1',
+            'pages' => 'required|min:1',
+        ]);
+        Book::create($data);
         return redirect('/books')->with('success', 'Book has been added successfully');
     }
 
     public function update($id){
 
-        $books = Book::find($id);
+        $data = request()->validate([
+            'isbn' => 'required|min:13',
+            'title' => 'required|min:3',
+            'authors_id' => 'required|min:1',
+            'pages' => 'required|min:1',
+        ]);
 
-        $books->isbn = request('isbn');
-        $books->title = request('title');
-        $books->authors_id = request('authors_id');
-        $books->pages = request('pages');
-
-        if(!$books->save()){
-            return redirect('/books')->with('error', 'Failed to update books. Please try again!');
-        }
+        Book::findOrFail($id)->update($data);
         return redirect('/books')->with('success', 'Book has been updated successfully');
     }
 

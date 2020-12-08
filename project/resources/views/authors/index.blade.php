@@ -94,8 +94,17 @@
               </div>
             @endif
               <table id="tables" class="table table-bordered">
+                <colgroup>
+                  <col style="width: 5%;">
+                  <col style="width: 15%;">
+                  <col style="width: 35%;">
+                  <col style="width: 5%;">
+                  <col style="width: 25%;">
+                  <col style="width: 15%;">
+                </colgroup>
                 <thead>
                   <th>#</th>
+                  <th style="text-align: center;">Profile</th>
                   <th>Initials</th>
                   <th>Age</th>
                   <th>Origin of Country</th>
@@ -105,12 +114,35 @@
                   <?php $count=1 ?>
                 @foreach($author as $auth)
                  <tr>
-                   <td>{{ $count++ }}</td>
+                    <td>{{ $count++ }}</td>
+                    <td style="text-align: center;">
+                      @if($auth->image === null)
+                      <img src="{{ asset('storage/uploads/profile.jpg') }}" width="50px" height="50px">
+                      @else
+                      <img src="{{ asset('storage/'. $auth->image) }}" width="50px" height="50px">
+                      @endif
+                    </td>
                     <td><a href="/authors/{{ $auth->id }}">{{ $auth->initials }}</a></td>
                     <td>{{ $auth->age }}</td>
                     <td>{{ $auth->country }}</td>
-                    <td>
+                    <!-- <td>
                       <a href="/authorsdel/{{ $auth->id }}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this?')"><i class="glyphicon glyphicon-trash"></i></a>
+                    </td> -->
+                    <td>
+                        <table>
+                          <tr>
+                            <td>
+                            <button class="btn btn-success btn-sm edit btn-flat" data-id="1" href="/authors/{{ $auth->id }}"><i class="fa fa-edit"></i> Edit</button>
+                            </td>
+                            <td>
+                            <form action="/authors/{{ $auth->id }}" method="POST">
+                              @csrf
+                              @method('delete')
+                              <button class="btn btn-danger btn-sm delete btn-flat" data-id="1" href="/authors/{{ $auth->id }}" onclick="return confirm('Are you sure you want to delete this?')"><i class="fa fa-trash"></i> Delete</button>
+                            </form>
+                            </td>
+                          </tr>
+                        </table>
                     </td>
                  </tr>
                  @endforeach

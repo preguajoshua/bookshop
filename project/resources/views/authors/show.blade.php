@@ -23,11 +23,9 @@
           <div class="box-body">
             <form method="POST" action="">
 
-                @if($authors->image)
-                <div class="form-group">
+                <!-- <div class="form-group">
                   <img src="{{ asset('storage/'. $authors->image) }}" alt="">
-                </div>
-                @endif
+                </div> -->
                 <div class="form-group">
                   <label for="inputTitle">Initials</label>
                   <input type="text" class="form-control" id="initials" name="initials" value="{{ $authors->initials }}" placeholder="Initials">
@@ -60,10 +58,13 @@
               <div class="form-group">
                 <label for="inputISBN">List of Books Published</label>
                 <ul>
-                  @foreach($booksOfAuthor as $booksOfAuthors)
+                  @forelse($booksOfAuthor as $booksOfAuthors)
                     <li>{{ $booksOfAuthors->title }}</li>
-                  
-                  @endforeach
+
+
+                  @empty
+                    <li>No books written by author</li>
+                  @endforelse
                 </ul>
                 
               </div>

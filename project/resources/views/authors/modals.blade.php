@@ -8,24 +8,10 @@
         </button>
         <h4 class="modal-title"><b>Add Author</b></h4>
       </div>
-      <form class="form-horizontal" method="POST" action="">
+      <form class="form-horizontal" method="POST" action="" enctype="multipart/form-data">
         <div class="modal-body">
 
-          <div class="form-group">
-            <label for="firstname" class="col-sm-3 control-label">First Name</label>
-
-            <div class="col-sm-9">
-              <input type="text" class="form-control" id="firstname" name="firstname" required>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="lastname" class="col-sm-3 control-label">Last Name</label>
-
-            <div class="col-sm-9">
-              <input type="text" class="form-control" id="lastname" name="lastname" required>
-            </div>
-          </div>
-
+         
           <div class="form-group">
             <label for="lastname" class="col-sm-3 control-label">Initials</label>
 
@@ -49,7 +35,14 @@
             </div>
           </div>
 
-        </div>
+          <div class="form-group">
+            <label for="profile" class="col-sm-3 control-label">Profile Image</label>
+
+            <div class="col-sm-9">
+              <input type="file" class="form-control" id="image" name="image">
+            </div>
+          </div>
+
 
         <div class="modal-footer">
           <button type="button" class="btn btn-default btn-flat pull-left" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>

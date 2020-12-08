@@ -23,7 +23,6 @@ class AuthorFactory extends Factory
     {
         return [
             'initials' => $this->faker->name,
-            'lastname' => $this->faker->realText(20),
             'age' => $this->faker->randomNumber(2),
             'country' => $this->faker->country,
         ];

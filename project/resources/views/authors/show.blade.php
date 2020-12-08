@@ -22,15 +22,12 @@
         <div class="box">
           <div class="box-body">
             <form method="POST" action="">
-              <!-- <div class="form-group">
-                  <label for="inputISBN">First Name</label>
-                  <input type="text" class="form-control" id="isbn" name="isbn" value="{{ $authors->isbn }}" placeholder="ISBN">
-                </div> -->
-                <div class="form-group">
-                  <label for="inputTitle">Last Name</label>
-                  <input type="text" class="form-control" id="lastname" name="lastname" value="{{ $authors->lastname }}" placeholder="Last Name">
-                </div>
 
+                @if($authors->image)
+                <div class="form-group">
+                  <img src="{{ asset('storage/'. $authors->image) }}" alt="">
+                </div>
+                @endif
                 <div class="form-group">
                   <label for="inputTitle">Initials</label>
                   <input type="text" class="form-control" id="initials" name="initials" value="{{ $authors->initials }}" placeholder="Initials">
@@ -43,6 +40,11 @@
                 <div class="form-group">
                   <label for="inputTitle">Country</label>
                   <input type="text" class="form-control" id="country" name="country" value="{{ $authors->country }}" placeholder="Country">
+                </div>
+
+                <div class="form-group">
+                  <label for="inputTitle">Profile Picture</label>
+                  <input type="file"  id="image" name="image">
                 </div>
                 @csrf
                 @method('PATCH')

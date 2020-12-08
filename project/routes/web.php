@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\BooksController;
+use App\Http\Controllers\AuthorsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,23 +19,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
-// Route::get('/books', function () {
-//     return view('books.index');
-// });
-Route::get('/books', 'App\Http\Controllers\BooksController@index');
-Route::post('/books', 'App\Http\Controllers\BooksController@store');
-Route::get('/books/{id}', 'App\Http\Controllers\BooksController@show');
-Route::PATCH('/books/{id}', 'App\Http\Controllers\BooksController@update');
-Route::GET('/booksdel/{id}', 'App\Http\Controllers\BooksController@delete');
-
-Route::GET('/authors', 'App\Http\Controllers\AuthorsController@index');
-Route::post('/authors', 'App\Http\Controllers\AuthorsController@store');
-Route::GET('/authors/{id}', 'App\Http\Controllers\AuthorsController@show');
-Route::PATCH('/authors/{id}', 'App\Http\Controllers\AuthorsController@update');
-Route::GET('/authorsdel/{id}', 'App\Http\Controllers\AuthorsController@delete');
+Route::GET('/books',[BooksController::class, 'index']);
+Route::POST('/books',[BooksController::class, 'store']);
+Route::GET('/books/{id}',[BooksController::class, 'show']);
+Route::PATCH('/books/{id}',[BooksController::class, 'update']);
+Route::DELETE('/books/{id}',[BooksController::class, 'delete']);
 
 
-// Route::get('/authors', function () {
-//     return view('authors.index');
-// });
+Route::GET('/authors',[AuthorsController::class, 'index']);
+Route::POST('/authors',[AuthorsController::class, 'store']);
+Route::GET('/authors/{id}',[AuthorsController::class, 'show']);
+Route::PATCH('/authors/{id}',[AuthorsController::class, 'update']);
+Route::DELETE('/authors/{id}',[AuthorsController::class, 'delete']);
+

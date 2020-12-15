@@ -7,23 +7,50 @@ use App\Models\Author;
 use Illuminate\Http\Request;
 
 class BooksController extends Controller
-{
+{   
+    /**
+     * List of all ooks main page
+     *
+     * @return void
+     */
     public function index(){
         
-        $books = Book::orderBy('title', 'ASC')->paginate(50);
+        $books = Book::orderBy('title', 'ASC')->simplePaginate(50);
         $authors = Author::all();
+
         return view('books.index', compact('books', 'authors'));
     }
 
+    /**
+     * Create new Book View
+     *
+     * @return void
+     */
+    public function create(){
 
-    public function show($id){
-
-        $books = Book::findOrFail($id);
         $authors = Author::all();
-        return view('books.show', compact('books', 'authors'));
+        return view('books.create',[
+            'author' => $authors,
+        ]);
+    }
+
+    /**
+     * Show specific book
+     *
+     * @param [type] $id
+     * @return void
+     */
+    public function show(Book $book){
+        $authors = Author::all();
+        return view('books.show', compact('book', 'authors'));
 
     }
 
+    /**
+     * Store book function
+     *
+     * @return void
+     */
     public function store(){
 
         Book::create($this->validatedFields());
@@ -31,27 +58,44 @@ class BooksController extends Controller
 
     }
 
-    public function update($id){
+    /**
+     * Update book function
+     *
+     * @param [type] $id
+     * @return void
+     */
+    public function update(Book $book){
 
-        Book::findOrFail($id)->update($this->validatedFields());
+        Book::findOrFail($book->id)->update($this->validatedFields());
         return redirect('/books')->with('success', 'Book has been updated successfully');
 
     }
 
-    public function delete($id){
+    /**
+     * Delete specific book
+     *
+     * @param [type] $id
+     * @return void
+     */
+    public function delete(Book $book){
 
-        $books = Book::findOrFail($id);
         $books->delete($books->id);
         return redirect('/books')->with('success', 'Book has been deleted successfully');
 
     }
 
+
+    /**
+     * Validated Fields
+     *
+     * @return void
+     */
     public function validatedFields(){
 
         return request()->validate([
             'isbn' => 'required|min:13',
             'title' => 'required|min:3',
-            'authors_id' => 'required|min:1',
+            'author_id' => 'required|min:1',
             'pages' => 'required|min:1',
         ]);
     }

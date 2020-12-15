@@ -15,20 +15,21 @@ use App\Http\Controllers\AuthorsController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// }
 
 Route::GET('/books',[BooksController::class, 'index']);
-Route::POST('/books',[BooksController::class, 'store']);
-Route::GET('/books/{id}',[BooksController::class, 'show']);
-Route::PATCH('/books/{id}',[BooksController::class, 'update']);
+Route::GET('/books/create',[BooksController::class, 'create']);
+Route::POST('/books/create',[BooksController::class, 'store']);
+Route::GET('/books/{book}/edit',[BooksController::class, 'show']);
+Route::PATCH('/books/{book}/edit',[BooksController::class, 'update']);
 Route::DELETE('/books/{id}',[BooksController::class, 'delete']);
 
 
 Route::GET('/authors',[AuthorsController::class, 'index']);
-Route::POST('/authors',[AuthorsController::class, 'store']);
-Route::GET('/authors/{id}',[AuthorsController::class, 'show']);
-Route::PATCH('/authors/{id}',[AuthorsController::class, 'update']);
-Route::DELETE('/authors/{id}',[AuthorsController::class, 'delete']);
-
+Route::GET('/authors/create',[AuthorsController::class, 'create']);
+Route::POST('/authors/create',[AuthorsController::class, 'store']);
+Route::GET('/authors/{author}/edit',[AuthorsController::class, 'show']);
+Route::PATCH('/authors/{author}/edit',[AuthorsController::class, 'update']);
+Route::DELETE('/authors/{author}',[AuthorsController::class, 'delete']);

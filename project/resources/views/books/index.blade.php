@@ -1,78 +1,87 @@
-@extends('includes.layout')
+@extends('includes.layouts')
 @section('content')
 
 
+@section('title')
+List of Books
+@endsection
 
-<div class="content-wrapper">
-  <!-- Content Header (Page header) -->
-  <section class="content-header">
-    <h1>
-      Books
-    </h1>
-    <ol class="breadcrumb">
-      <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-      <li class="active">Authors</li>
-    </ol>
-  </section>
-  <!-- Main content -->
-  <section class="content">
-
+<div style="padding-top: 20px; padding-bottom: 20px">
+  <h2>Lists of Books</h5>
+</div>
+  
+  <div class="row">
+    <div class="col-12">
     @if ($message = Session::get('success'))
-    <div class="alert alert-success alert-dismissable">
-      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
       <p>{{ $message }}</p>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
     </div>
+
 
     @elseif ($errors->any())
-    <div class="alert alert-warning alert-dismissable">
-      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
       <p>{{ $errors }}</p>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
     </div>
     @endif
-    
-    <div class="row">
-      <div class="col-xs-12">
-        <div class="box">
-          <div class="box-header with-border">
-            <a href="#addnewBook" data-toggle="modal" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-plus"></i> New</a>
-          </div>
-          <div class="box-body">
-            <table id="example1" class="table table-bordered">
-              <thead>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <div class="box">
+        <!-- <div class="box-header with-border">
+          <a href="#addnewBook" data-toggle="modal" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-plus"></i> New</a>
+        </div> -->
+        <div class="box-body">
+          <table class="table table-striped">
+            <thead>
+              <tr>
                 <th>ISBN #</th>
                 <th>Title</th>
                 <th>Author</th>
                 <th>No of Pages</th>
                 <th>Action</th>
-              </thead>
-              <tbody>
-                @foreach($books as $book)
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+              @foreach($books as $book)
                 <tr>
                   <td>{{ $book->isbn }}</td>
-                  <td><a href="/books/{{$book->id}}">{{ $book->title }}</a></td>
-                  <td>{{ $book->authors->initials }}</td>
+                  <td><a href="/books/{{$book->id}}/edit">{{ $book->title }}</a></td>
+                  <td>{{ $book->author->initials }}</td>
                   <td>{{ $book->pages }}</td>
                   <td>
-                    <a href="/booksdel/{{ $book->id }}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this?')"><i class="glyphicon glyphicon-trash"></i></a>
-                  </td>
+                        <div class="row">
+                            <div class="col-md-4">
+                              <a class="btn btn-success btn-sm edit btn-flat" data-id="1" href="/books/{{ $book->id }}/edit"><i class="fa fa-edit"></i> Edit</a>
+                            </div>
+                            <div class="col-md-8">
+                              <form action="/books/{{ $book->id }}" method="POST">
+                                @csrf
+                                @method('delete')
+                                <button class="btn btn-danger btn-sm delete btn-flat" data-id="1" href="/books/{{ $book->id }}" onclick="return confirm('Are you sure you want to delete this?')"><i class="fa fa-trash"></i> Delete</button>
+                              </form>
+                            </div>
+                        </div>
+                    </td>
                 </tr>
                 @endforeach
-              </tbody>
-            </table>
-
-
-            {{ $books->links() }}
-
-
-          </div>
+              </tr>
+            </tbody>
+          </table>
+          {{ $books->links() }}
         </div>
       </div>
     </div>
-    @include('books.modals')
-  </section>   
-  
-  
-</div>
+  </div>
 
+  
 
-@endsection
+  @endsection

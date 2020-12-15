@@ -1,33 +1,47 @@
-@extends('includes.layout')
+@extends('includes.layouts')
 @section('content')
 
 
+@section('title')
+List of Authors
+@endsection
 
-<div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-        Authors
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Authors</li>
-      </ol>
-    </section>
-    <!-- Main content -->
-    <section class="content">
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="box">
-            <div class="box-header with-border">
-              <a href="#addNewAuthor" data-toggle="modal" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-plus"></i> New</a>
-            </div>
-
-            
-            <div class="box-body">
+<div style="padding-top: 20px; padding-bottom: 20px">
+  <h2>Lists of Authors</h5>
+</div>
 
 
-            <div class="row">
+  <div class="row">
+    <div class="col">
+      <div class="box">
+        <!-- <div class="box-header with-border">
+          <a href="#addnewBook" data-toggle="modal" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-plus"></i> New</a>
+        </div> -->
+        <div class="box-body">
+
+        <div class="row">
+          <div class="col-12">
+          @if ($message = Session::get('success'))
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <p>{{ $message }}</p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+
+
+          @elseif ($errors->any())
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <p>{{ $errors }}</p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          @endif
+          </div>
+        </div>
+
+        <div class="row">
               <div class="col-lg-3 col-xs-6">
                 <!-- small box -->
                 <div class="small-box bg-aqua">
@@ -38,7 +52,6 @@
                   <div class="icon">
                     <i class="ion ion-bag"></i>
                   </div> 
-                  <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
               </div><!-- ./col -->
               <div class="col-lg-3 col-xs-6">
@@ -51,20 +64,18 @@
                   <div class="icon">
                     <i class="ion ion-stats-bars"></i>
                   </div>
-                  <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
               </div><!-- ./col -->
               <div class="col-lg-3 col-xs-6">
                 <!-- small box -->
                 <div class="small-box bg-yellow">
                   <div class="inner">
-                    <h3>{{ $distinctBooks->count() }}</h3>
-                    <p>Books</p>
+                    <h3>{{ $averageBooks }}</h3>
+                    <p>Average Books</p>
                   </div>
                   <div class="icon">
                     <i class="ion ion-person-add"></i>
                   </div>
-                  <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
               </div><!-- ./col -->
               <div class="col-lg-3 col-xs-6">
@@ -77,42 +88,24 @@
                   <div class="icon">
                     <i class="ion ion-pie-graph"></i>
                   </div>
-                  <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
               </div><!-- ./col -->
             </div>
-            @if ($message = Session::get('success'))
-              <div class="alert alert-success alert-dismissable">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                <p>{{ $message }}</p>
-              </div>
-
-            @elseif ($errors->any())
-              <div class="alert alert-warning alert-dismissable">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                  <p>{{ $errors }}</p>
-              </div>
-            @endif
-              <table id="tables" class="table table-bordered">
-                <colgroup>
-                  <col style="width: 5%;">
-                  <col style="width: 15%;">
-                  <col style="width: 35%;">
-                  <col style="width: 5%;">
-                  <col style="width: 25%;">
-                  <col style="width: 15%;">
-                </colgroup>
-                <thead>
-                  <th>#</th>
-                  <th style="text-align: center;">Profile</th>
-                  <th>Initials</th>
-                  <th>Age</th>
-                  <th>Origin of Country</th>
-                  <th>Action</th>
-                </thead>
-                <tbody>
-                  <?php $count=1 ?>
-                @foreach($author as $auth)
+            
+          <table class="table table-striped">
+            <thead>
+                <th>#</th>
+                <th style="text-align: center;">Profile</th>
+                <th>Lastname</th>
+                <th>Initials</th>
+                <th>Age</th>
+                <th>Origin of Country</th>
+                <th>No of Pages</th>
+                <th>Action</th>
+            </thead>
+            <tbody>
+                <?php $count=1 ?>
+                @foreach($authors as $auth)
                  <tr>
                     <td>{{ $count++ }}</td>
                     <td style="text-align: center;">
@@ -122,38 +115,41 @@
                       <img src="{{ asset('storage/'. $auth->image) }}" width="50px" height="50px">
                       @endif
                     </td>
-                    <td><a href="/authors/{{ $auth->id }}">{{ $auth->initials }}</a></td>
+                    <td>{{ $auth->lastname }}</td>
+                    <td><a href="/authors/{{ $auth->id }}/edit">{{ $auth->initials }}</a></td>
                     <td>{{ $auth->age }}</td>
                     <td>{{ $auth->country }}</td>
-                    <!-- <td>
-                      <a href="/authorsdel/{{ $auth->id }}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this?')"><i class="glyphicon glyphicon-trash"></i></a>
-                    </td> -->
                     <td>
-                        <table>
-                          <tr>
-                            <td>
-                            <button class="btn btn-success btn-sm edit btn-flat" data-id="1" href="/authors/{{ $auth->id }}"><i class="fa fa-edit"></i> Edit</button>
-                            </td>
-                            <td>
-                            <form action="/authors/{{ $auth->id }}" method="POST">
-                              @csrf
-                              @method('delete')
-                              <button class="btn btn-danger btn-sm delete btn-flat" data-id="1" href="/authors/{{ $auth->id }}" onclick="return confirm('Are you sure you want to delete this?')"><i class="fa fa-trash"></i> Delete</button>
-                            </form>
-                            </td>
-                          </tr>
-                        </table>
+                      @if($auth->pages === NULL)
+                        N/A
+                      @else
+                        {{ $auth->pages }}
+                      @endif
+                    </td>
+                    <td>
+                        <div class="row">
+                            <div class="col-md-4">
+                              <a class="btn btn-success btn-sm edit btn-flat" data-id="1" href="/authors/{{ $auth->id }}/edit"><i class="fa fa-edit"></i> Edit</a>
+                            </div>
+                            <div class="col-md-8">
+                              <form action="/authors/{{ $auth->id }}" method="POST">
+                                @csrf
+                                @method('delete')
+                                <button class="btn btn-danger btn-sm delete btn-flat" data-id="1" href="/authors/{{ $auth->id }}" onclick="return confirm('Are you sure you want to delete this?')"><i class="fa fa-trash"></i> Delete</button>
+                              </form>
+                            </div>
+                        </div>
                     </td>
                  </tr>
                  @endforeach
                 </tbody>
-              </table>
-              {{ $author->links() }}
-            </div>
-          </div>
+          </table>
+          {{ $authors->links() }}
         </div>
       </div>
-      @include('authors.modals')
-    </section>   
+    </div>
   </div>
-@endsection
+
+  
+
+  @endsection

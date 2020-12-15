@@ -13,7 +13,7 @@ class Book extends Model
 
     protected $guarded = [];
 
-    public function authors(){
+    public function author(){
         return $this->belongsTo(Author::class);
     }
 }

@@ -11,7 +11,7 @@ class Author extends Model
     use HasFactory;
 
     protected $guarded = [];
-    public function book(){
+    public function books(){
         return $this->hasMany(Book::class);
     }
 }

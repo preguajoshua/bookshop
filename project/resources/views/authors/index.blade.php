@@ -8,6 +8,7 @@ List of Authors
 
 <div style="padding-top: 20px; padding-bottom: 20px">
   <h2>Lists of Authors</h5>
+  <a class="btn btn-primary" role="button" href="/authors/create">Add new Author</a>
 </div>
 
 
@@ -91,6 +92,8 @@ List of Authors
                 </div>
               </div><!-- ./col -->
             </div>
+
+    
             
           <table class="table table-striped">
             <thead>

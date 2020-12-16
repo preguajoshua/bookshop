@@ -8,6 +8,7 @@ List of Books
 
 <div style="padding-top: 20px; padding-bottom: 20px">
   <h2>Lists of Books</h5>
+  <a class="btn btn-primary" role="button" href="/books/create">Add new Book</a>
 </div>
   
   <div class="row">

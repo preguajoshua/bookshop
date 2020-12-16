@@ -15,9 +15,9 @@ use App\Http\Controllers\AuthorsController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// }
+Route::get('/', function () {
+    return view('welcome');
+});
 
 Route::GET('/books',[BooksController::class, 'index']);
 Route::GET('/books/create',[BooksController::class, 'create']);

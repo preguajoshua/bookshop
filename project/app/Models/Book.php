@@ -16,4 +16,12 @@ class Book extends Model
     public function author(){
         return $this->belongsTo(Author::class);
     }
+
+    public function getisbnAttribute($value){
+        return strtoupper($value);
+    }
+
+    public function setisbnAttribute($value){
+        $this->attributes['isbn'] = strtoupper($value);
+    }
 }

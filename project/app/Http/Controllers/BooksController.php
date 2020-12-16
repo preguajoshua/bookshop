@@ -93,7 +93,7 @@ class BooksController extends Controller
     public function validatedFields(){
 
         return request()->validate([
-            'isbn' => 'required|min:13',
+            'isbn' => 'unique:books|required|min:13',
             'title' => 'required|min:3',
             'author_id' => 'required|min:1',
             'pages' => 'required|min:1',

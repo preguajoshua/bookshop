@@ -31,14 +31,20 @@ class AuthorsController extends Controller
         )
         ->selectRaw('round(AVG(books.pages),0) AS pages ')
         ->groupBy('authors.id')
-        ->orderBy('books.pages', 'DESC')
+        ->orderBy('books.pages', 'ASC')
         ->simplePaginate(50);
+
+        $averagebooks = DB::table('books')
+        ->select(DB::raw('COUNT(title) as averagebooks'))
+        ->whereNotNull('id')
+        ->groupBy('author_id')
+        ->get(); 
 
         
         $distinctCountries = Author::distinct('country');
-        (int)$averageBooks = round((int)Book::all()->count() / (int) $authors->count(),0);
+        
 
-        return view('authors.index', compact('averageBooks', 'authors', 'distinctCountries'));
+        return view('authors.index', compact('averagebooks', 'authors', 'distinctCountries'));
     }
 
     /**
@@ -49,7 +55,6 @@ class AuthorsController extends Controller
      */
     public function show(Author $author)
     {
-        // dd($author);
         $booksOfAuthor =  Book::where('author_id', $author->id)->get();
         return view('authors.show', compact('author', 'booksOfAuthor'));
     }

@@ -71,7 +71,7 @@ List of Authors
                 <!-- small box -->
                 <div class="small-box bg-yellow">
                   <div class="inner">
-                    <h3>{{ $averageBooks }}</h3>
+                    <h3>{{ round($averagebooks->avg('averagebooks')) }}</h3>
                     <p>Average Books</p>
                   </div>
                   <div class="icon">

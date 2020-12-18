@@ -41,5 +41,17 @@ class ExampleTest extends TestCase
         $response->assertSee($title, $escaped = true);        
     }
 
+
+    public function test_author_page_can_be_viewed()
+    {
+        //Arrange 
+        $author = Author::factory()->create();
+
+        //Action
+        $response = $this->get('/authors');
+
+        //Assert
+        $response->assertStatus(200);    
+    }
     
 }

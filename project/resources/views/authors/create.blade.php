@@ -13,7 +13,7 @@ Create New Book
 
 <div class="section">
 
-    <form class="form-horizontal" method="POST" action="" enctype="multipart/form-data">
+    <form class="form-horizontal" method="POST" action="{{ route('authors.create') }}" enctype="multipart/form-data">
         <div class="mb-3">
             <label for="ISBN" class="form-label">Initials</label>
             <input type="text" class="form-control @error('initials') is-invalid @enderror" value="{{ old('initials') }}" id="initials" name="initials" aria-describedby="isbn">

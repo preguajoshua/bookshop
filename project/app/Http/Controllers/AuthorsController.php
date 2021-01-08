@@ -10,6 +10,10 @@ use Mockery\Generator\StringManipulation\Pass\Pass;
 
 class AuthorsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * List of all Authors main page
      *

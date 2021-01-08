@@ -8,6 +8,10 @@ use Illuminate\Http\Request;
 
 class BooksController extends Controller
 {   
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * List of all ooks main page
      *
